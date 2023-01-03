@@ -4,6 +4,7 @@ endif
 
 terraform-validate:
 	cd $(project); \
+	terraform init; \
 	terraform validate
 
 terraform-plan:
