@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [ develop ]
+
+# Add "id-token" with the intended permissions.
+permissions:
+  contents: 'read'
+  id-token: 'write'
+
+jobs:
+  project1:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: 'actions/checkout@v3'
+
+    # Configure Workload Identity Federation via a credentials file.
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        workload_identity_provider: 'projects/136998238445/locations/global/workloadIdentityPools/googlemon-pool4/providers/googlemon-identity-provider'
+        service_account: 'googlemon-service-account@secret-medium-373003.iam.gserviceaccount.com'
+
+    # Install gcloud, `setup-gcloud` automatically picks up authentication from `auth`.
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
+
+    - name: Setup Terraform CLI
+      uses: hashicorp/setup-terraform@v2
+
+    - name: Terraform Validate
+      id: init
+      run: make terraform-validate project='project1'
+
+    - name: Terraform Plan
+      id: init
+      run: make terraform-plan project='project1'
+
+    - name: Terraform Apply
+      id: init
+      run: make terraform-apply project='project1'
