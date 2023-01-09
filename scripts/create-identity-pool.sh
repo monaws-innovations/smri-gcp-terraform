@@ -1,10 +1,10 @@
 #!/bin/bash
 
 export PROJECT_ID="secret-medium-373003"
-export IDENTITY_POOL="googlemon-pool8"
+export IDENTITY_POOL="googlemon-pool9"
 export IDENTITY_PROVIDER="googlemon-identity-provider"
 export SERVICE_ACCOUNT="googlemon-service-account"
-export REPO="smic-ops/smri-gcp-terraform"
+export REPO="monaws-innovations/smri-gcp-terraform"
 
 gcloud iam service-accounts create $SERVICE_ACCOUNT \
   --project "${PROJECT_ID}"
@@ -40,10 +40,10 @@ gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT
   --role="roles/iam.securityReviewer" \
   --member="principalSet://iam.googleapis.com/${WORKLOAD_IDENTITY_POOL_ID}/attribute.repository/${REPO}"
 
-gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
-  --project="${PROJECT_ID}" \
-  --role="roles/owner" \
-  --member="principalSet://iam.googleapis.com/${WORKLOAD_IDENTITY_POOL_ID}/attribute.repository/${REPO}"
+# gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
+#   --project="${PROJECT_ID}" \
+#   --role="roles/owner" \
+#   --member="principalSet://iam.googleapis.com/${WORKLOAD_IDENTITY_POOL_ID}/attribute.repository/${REPO}"
 
 gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
   --project="${PROJECT_ID}" \
@@ -55,10 +55,10 @@ gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT
   --role="roles/iam.securityReviewer" \
   --member="serviceAccount:${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com"
 
-gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
-  --project="${PROJECT_ID}" \
-  --role="roles/owner" \
-  --member="serviceAccount:${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com"
+# gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
+#   --project="${PROJECT_ID}" \
+#   --role="roles/owner" \
+#   --member="serviceAccount:${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com"
 
 gcloud iam workload-identity-pools providers describe $IDENTITY_PROVIDER \
   --project="${PROJECT_ID}" \
