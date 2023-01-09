@@ -37,6 +37,11 @@ gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT
 
 gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
   --project="${PROJECT_ID}" \
+  --role="roles/iam.securityReviewer" \
+  --member="principalSet://iam.googleapis.com/${WORKLOAD_IDENTITY_POOL_ID}/attribute.repository/${REPO}"
+
+gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
+  --project="${PROJECT_ID}" \
   --role="roles/iam.securityAdmin" \
   --member="serviceAccount:${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com"
 
