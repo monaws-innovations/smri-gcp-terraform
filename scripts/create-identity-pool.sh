@@ -13,6 +13,9 @@ gcloud iam service-accounts create $SERVICE_ACCOUNT \
 gcloud services enable iamcredentials.googleapis.com \
   --project "${PROJECT_ID}"
 
+gcloud services enable storage.googleapis.com
+  --project "${PROJECT_ID}"
+
 gcloud iam workload-identity-pools create $IDENTITY_POOL \
   --project="${PROJECT_ID}" \
   --location="global" \
