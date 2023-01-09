@@ -20,7 +20,7 @@ jobs:
       name: 'Authenticate to Google Cloud'
       uses: 'google-github-actions/auth@v0.4.0'
       with:
-        workload_identity_provider: 'projects/136998238445/locations/global/workloadIdentityPools/googlemon-pool10/providers/googlemon-identity-provider'
+        workload_identity_provider: 'projects/136998238445/locations/global/workloadIdentityPools/googlemon-pool19/providers/googlemon-identity-provider'
         service_account: 'googlemon-service-account@secret-medium-373003.iam.gserviceaccount.com'
 
     # Install gcloud, `setup-gcloud` automatically picks up authentication from `auth`.

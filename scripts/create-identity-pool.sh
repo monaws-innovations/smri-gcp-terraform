@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export PROJECT_ID="secret-medium-373003"
-export IDENTITY_POOL="googlemon-pool12"
+export IDENTITY_POOL="googlemon-pool19"
 export IDENTITY_PROVIDER="googlemon-identity-provider"
 export SERVICE_ACCOUNT="googlemon-service-account"
 # export SERVICE_ACCOUNT="github-actions-googlemon"
@@ -33,18 +33,8 @@ gcloud iam workload-identity-pools providers create-oidc $IDENTITY_PROVIDER \
 
 gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
   --project="${PROJECT_ID}" \
-  --role="roles/iam.securityAdmin" \
+  --role="roles/iam.workloadIdentityUser" \
   --member="principalSet://iam.googleapis.com/${WORKLOAD_IDENTITY_POOL_ID}/attribute.repository/${REPO}"
-
-gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
-  --project="${PROJECT_ID}" \
-  --role="roles/iam.securityReviewer" \
-  --member="principalSet://iam.googleapis.com/${WORKLOAD_IDENTITY_POOL_ID}/attribute.repository/${REPO}"
-
-# gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
-#   --project="${PROJECT_ID}" \
-#   --role="roles/owner" \
-#   --member="principalSet://iam.googleapis.com/${WORKLOAD_IDENTITY_POOL_ID}/attribute.repository/${REPO}"
 
 gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
   --project="${PROJECT_ID}" \
