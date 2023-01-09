@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export PROJECT_ID="secret-medium-373003"
-export IDENTITY_POOL="googlemon-pool7"
+export IDENTITY_POOL="googlemon-pool8"
 export IDENTITY_PROVIDER="googlemon-identity-provider"
 export SERVICE_ACCOUNT="googlemon-service-account"
 export REPO="smic-ops/smri-gcp-terraform"
@@ -37,7 +37,7 @@ gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT
 
 gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
   --project="${PROJECT_ID}" \
-  --role="roles/iam.securityReviewer" \
+  --role="roles/iam.securityAdmin" \
   --member="serviceAccount:${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com"
 
 gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
