@@ -5,9 +5,9 @@ resource "random_id" "bucket_prefix" {
 resource "google_storage_bucket" "default" {
   name          = "${random_id.bucket_prefix.hex}-project1-tfstate"
   force_destroy = false
-  location      = "US"
+  location      = var.location
   storage_class = "STANDARD"
-  project = "secret-medium-373003"
+  project = var.project
   versioning {
     enabled = true
   }
