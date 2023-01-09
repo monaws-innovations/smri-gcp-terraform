@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ master ]
 
 # Add "id-token" with the intended permissions.
 permissions:
@@ -15,12 +15,19 @@ jobs:
     steps:
     - uses: 'actions/checkout@v3'
 
+    - name: SonarQube Scan
+      uses: sonarsource/sonarqube-scan-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        LC_ALL: "ru_RU.UTF-8"
+
     # Configure Workload Identity Federation via a credentials file.
     - id: 'auth'
       name: 'Authenticate to Google Cloud'
-      uses: 'google-github-actions/auth@v1'
+      uses: 'google-github-actions/auth@v0.4.0'
       with:
-        workload_identity_provider: 'projects/136998238445/locations/global/workloadIdentityPools/googlemon-pool4/providers/googlemon-identity-provider'
+        workload_identity_provider: 'projects/136998238445/locations/global/workloadIdentityPools/googlemon-pool25/providers/googlemon-identity-provider'
         service_account: 'googlemon-service-account@secret-medium-373003.iam.gserviceaccount.com'
 
     # Install gcloud, `setup-gcloud` automatically picks up authentication from `auth`.
@@ -31,13 +38,13 @@ jobs:
       uses: hashicorp/setup-terraform@v2
 
     - name: Terraform Validate
-      id: init
+      id: validate
       run: make terraform-validate project='project1'
 
     - name: Terraform Plan
-      id: init
+      id: plan
       run: make terraform-plan project='project1'
 
     - name: Terraform Apply
-      id: init
+      id: apply
       run: make terraform-apply project='project1'
