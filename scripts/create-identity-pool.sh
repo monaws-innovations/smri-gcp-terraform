@@ -1,13 +1,14 @@
 #!/bin/bash
 
 export PROJECT_ID="secret-medium-373003"
-export IDENTITY_POOL="googlemon-pool9"
+export IDENTITY_POOL="googlemon-pool10"
 export IDENTITY_PROVIDER="googlemon-identity-provider"
-export SERVICE_ACCOUNT="googlemon-service-account"
+# export SERVICE_ACCOUNT="googlemon-service-account"
+export SERVICE_ACCOUNT="github-actions-googlemon"
 export REPO="monaws-innovations/smri-gcp-terraform"
 
-gcloud iam service-accounts create $SERVICE_ACCOUNT \
-  --project "${PROJECT_ID}"
+# gcloud iam service-accounts create $SERVICE_ACCOUNT \
+#   --project "${PROJECT_ID}"
 
 gcloud services enable iamcredentials.googleapis.com \
   --project "${PROJECT_ID}"
