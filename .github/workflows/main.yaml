@@ -20,6 +20,7 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        projectBaseDir: project1/iam
         LC_ALL: "ru_RU.UTF-8"
 
     # Configure Workload Identity Federation via a credentials file.
